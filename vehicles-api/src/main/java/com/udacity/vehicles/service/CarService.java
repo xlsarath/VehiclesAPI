@@ -1,9 +1,15 @@
 package com.udacity.vehicles.service;
 
+import com.udacity.vehicles.client.maps.MapsClient;
+import com.udacity.vehicles.client.prices.PriceClient;
 import com.udacity.vehicles.domain.car.Car;
 import com.udacity.vehicles.domain.car.CarRepository;
 import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Implements the car service create, read, update or delete
@@ -14,13 +20,18 @@ import org.springframework.stereotype.Service;
 public class CarService {
 
     private final CarRepository repository;
+    private MapsClient mapsClient;
+    private PriceClient priceClient;
 
-    public CarService(CarRepository repository) {
+
+    public CarService(CarRepository repository, @Qualifier("maps") WebClient mapsWebClient, @Qualifier("pricing") WebClient pricesWebClient, ModelMapper modelMapper) {
         /**
          * TODO: Add the Maps and Pricing Web Clients you create
          *   in `VehiclesApiApplication` as arguments and set them here.
          */
         this.repository = repository;
+        this.mapsClient = new MapsClient(mapsWebClient,modelMapper);
+        this.priceClient = new PriceClient(pricesWebClient);
     }
 
     /**
@@ -42,7 +53,10 @@ public class CarService {
          *   If it does not exist, throw a CarNotFoundException
          *   Remove the below code as part of your implementation.
          */
-        Car car = new Car();
+       // Car car = new Car();
+        return repository.findById(id).map(car -> {car.setPrice(priceClient.getPrice(id));
+                              car.setLocation(mapsClient.getAddress(car.getLocation()));
+                                return car;}).orElseThrow(CarNotFoundException::new);
 
         /**
          * TODO: Use the Pricing Web client you create in `VehiclesApiApplication`
@@ -63,7 +77,7 @@ public class CarService {
          */
 
 
-        return car;
+      //  return car;
     }
 
     /**

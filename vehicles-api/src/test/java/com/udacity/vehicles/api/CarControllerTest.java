@@ -130,19 +130,19 @@ public class CarControllerTest {
      */
     private Car getCar() {
         Car car = new Car();
-        car.setLocation(new Location(40.730610, -73.935242));
+        car.setLocation(new Location(37.335780, -121.882163));
         Details details = new Details();
-        Manufacturer manufacturer = new Manufacturer(101, "Chevrolet");
+        Manufacturer manufacturer = new Manufacturer(101, "Mahindra");
         details.setManufacturer(manufacturer);
-        details.setModel("Impala");
-        details.setMileage(32280);
-        details.setExternalColor("white");
-        details.setBody("sedan");
-        details.setEngine("3.6L V6");
-        details.setFuelType("Gasoline");
-        details.setModelYear(2018);
-        details.setProductionYear(2018);
-        details.setNumberOfDoors(4);
+        details.setModel("Scorpio");
+        details.setMileage(89999);
+        details.setExternalColor("black");
+        details.setBody("suv");
+        details.setEngine("2.4L mHawk");
+        details.setFuelType("Diesel");
+        details.setModelYear(2020);
+        details.setProductionYear(2020);
+        details.setNumberOfDoors(5);
         car.setDetails(details);
         car.setCondition(Condition.USED);
         return car;

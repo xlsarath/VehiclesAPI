@@ -33,7 +33,7 @@ public class VehiclesApiApplication {
     CommandLineRunner initDatabase(ManufacturerRepository repository) {
         return args -> {
             repository.save(new Manufacturer(100, "Audi"));
-            repository.save(new Manufacturer(101, "Chevrolet"));
+            repository.save(new Manufacturer(101, "Mahindra"));
             repository.save(new Manufacturer(102, "Ford"));
             repository.save(new Manufacturer(103, "BMW"));
             repository.save(new Manufacturer(104, "Dodge"));

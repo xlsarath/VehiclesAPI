@@ -96,6 +96,11 @@ public class CarControllerTest {
          *   the whole list of vehicles. This should utilize the car from `getCar()`
          *   below (the vehicle will be the first in the list).
          */
+        mvc.perform(get("/cars/"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .toString()
+                .contains("carList");
 
     }
 
@@ -109,6 +114,12 @@ public class CarControllerTest {
          * TODO: Add a test to check that the `get` method works by calling
          *   a vehicle by ID. This should utilize the car from `getCar()` below.
          */
+        mvc.perform(get("/cars/1"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .toString()
+                .contains("Audi");
+
     }
 
     /**
@@ -122,6 +133,8 @@ public class CarControllerTest {
          *   when the `delete` method is called from the Car Controller. This
          *   should utilize the car from `getCar()` below.
          */
+        mvc.perform(delete("/cars/1"))
+                .andExpect(status().is(204));
     }
 
     /**
